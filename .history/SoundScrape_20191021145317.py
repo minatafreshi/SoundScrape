@@ -85,11 +85,7 @@ while True:
         soup = bs4.BeautifulSoup(requests.text, "lxml")
 
         songs = soup.select("h2")[:2]
-        song_links = []
-        song_names = []
+        song
 
-        for index, track in enumerate(tracks):
-            track_links.append(track.a.get("href"))
-            track_names.append(track.text)
-            print(str(index+1) + ": " + track.text)
-            print()
+
+        

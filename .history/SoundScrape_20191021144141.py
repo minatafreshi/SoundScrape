@@ -67,29 +67,6 @@ while True:
 
         genre_link = []
 
-        for index, genre in enumerate(genres)
-            print(str(index) + ": " + genre.text)
-            genre_link.append(genre.get("href"))
+        for index, genre in enumerate(genre)
 
-        print()
-        choice = input(">>> Your choice (x to re-select chart type):")
-        print()
-
-        if choice == 'x':
-            break
-        else:
-            choice = int(choice)
-
-        url = "" + genre_link[choice]
-        requests = requests.get(url)
-        soup = bs4.BeautifulSoup(requests.text, "lxml")
-
-        songs = soup.select("h2")[:2]
-        song_links = []
-        song_names = []
-
-        for index, track in enumerate(tracks):
-            track_links.append(track.a.get("href"))
-            track_names.append(track.text)
-            print(str(index+1) + ": " + track.text)
-            print()
+        

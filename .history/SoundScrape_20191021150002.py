@@ -88,7 +88,7 @@ while True:
         song_links = []
         song_names = []
 
-        for index, track in enumerate(tracks):
+         for index, track in enumerate(tracks):
             track_links.append(track.a.get("href"))
             track_names.append(track.text)
             print(str(index+1) + ": " + track.text)
