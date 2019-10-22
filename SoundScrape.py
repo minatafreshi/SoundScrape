@@ -3,14 +3,21 @@ import os
 import bs4
 import requests
 
-top_url = ""
-new_url = ""
-mix_url = ""
-artist_url = ""
-song_url = ""
 
-page = webdriver.Chrome('')
-page.get("")
+top_url = "https://soundcloud.com/charts/top"
+new_url = "https://soundcloud.com/charts/new"
+mix_url = "&filter.duration=epic"
+artist_url = "https://soundcloud.com/search/people?q="
+song_url = "https://soundcloud.com/search/sounds?q="
+
+page = webdriver.Chrome('/usr/local/bin/chromedriver')
+page.get("https://soundcloud.com")
+
+print()
+print(">>> Welcome to the Python Soundcloud Scraper")
+print(">>> Explore the Top / New & Hot Charts for all Genres")
+print(">>> Search Soundcloud for Tracks, Artist, and Mixes")
+print()
 
 while True:
     print(">>> Menu: ")
@@ -22,7 +29,6 @@ while True:
     print(">>> 0 . EXIT  ")
     print()
     choice = int(input(">>> Your choice  "))
-
     if choice == 0:
         page.quit()
         break
@@ -60,14 +66,14 @@ while True:
         else:
             url = new_url
 
-        requests = requests.get(url)
-        soup = bs4.BeautifulSoup(requests.text, "lxml")
+        request = requests.get(url)
+        soup = bs4.BeautifulSoup(request.text, "lxml")
 
         genres = soup.select("a[href*=genre]")[2:]
 
         genre_link = []
 
-        for index, genre in enumerate(genres)
+        for index, genre in enumerate(genres):
             print(str(index) + ": " + genre.text)
             genre_link.append(genre.get("href"))
 
@@ -80,11 +86,11 @@ while True:
         else:
             choice = int(choice)
 
-        url = "" + genre_link[choice]
-        requests = requests.get(url)
-        soup = bs4.BeautifulSoup(requests.text, "lxml")
+        url = "http://soundcloud.com" + genre_link[choice]
+        request = requests.get(url)
+        soup = bs4.BeautifulSoup(request.text, "lxml")
 
-        songs = soup.select("h2")[:2]
+        songs = soup.select("h2")[3:]
         song_links = []
         song_names = []
 
@@ -93,3 +99,21 @@ while True:
             track_names.append(track.text)
             print(str(index+1) + ": " + track.text)
             print()
+
+        while True:
+            choice == input(">>> Your choice (x to re-select genre): ")
+            print()
+
+            if choice == 'x':
+                break
+            else:
+                choice = int(choice)-1
+
+            print("Playing: " + song_names[choice])
+            print()
+
+            page.get("http://soundcloud.com" + song_links[choice])
+
+print()
+print("Bye!")
+print()
